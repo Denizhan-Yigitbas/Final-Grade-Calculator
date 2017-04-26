@@ -1,0 +1,153 @@
+<html>
+
+<head>
+<title>D'Evelyn Weighted Final Grade Calculator</title>
+<style>
+
+	body
+	{
+	background-color:green;
+	
+	}
+
+	.container {
+  		 padding: 15px;
+	}
+
+
+</style>
+
+	<script type='text/javascript'>
+		var w = [];
+		var p = [];
+		var C = 0;
+		var D = 0;
+		function addFields() {
+			// Number of inputs to create
+			var number = document.getElementById("category_weight").value;
+			// Container <div> where dynamic content will be placed
+			var container = document.getElementById("container");
+			// Clear previous contents of the container
+			while (container.hasChildNodes()) {
+			container.removeChild(container.lastChild);
+			}
+		for (i = 0; i < number; i++){
+			// create a row element to contain each pair
+			var row = document.createElement("div");
+			row.id = 'row' + i
+
+			row.appendChild(document.createTextNode("Category " + (i+1) + " weight: "));
+			var weight_input = document.createElement("input");
+			weight_input.type = "number";
+			weight_input.name = "weight";	
+			row.appendChild(weight_input);
+
+                	row.appendChild(document.createTextNode("Category " + (i+1) + " percentage: "));
+                	var percentage_input = document.createElement("input");
+                	percentage_input.type = "number";
+               	 	percentage_input.name = "percentage";
+                	row.appendChild(percentage_input);
+
+                	// append inputs to row instead of container, then append each row to container
+                	container.appendChild(row);
+            		}
+        	}
+		function weighted() {
+
+			var container = document.getElementById("container");
+			var rows = container.children;
+			for (var i = 0; i < rows.length; i++) {
+			var row = rows[i];
+			w[i] = row.children[0].value;  // or row.querySelectorAll('[name=weight]').value;
+			p[i] = row.children[1].value;
+
+			}
+
+			for(var i =0; i < rows.length; i++){
+			// You can do as much calculation here with w[i] & p[i]
+				C += parseFloat(w[i]*p[i]);
+				D += parseFloat(w[i]);
+			}
+			console.log(C);
+			console.log(D);
+	     
+			var x = "";
+			var A = parseFloat(document.getElementById("goal_grade").value);
+			var B = parseFloat(document.getElementById("exam_weight").value);
+	     
+	     
+			x = Math.round((A*(D+B)-C)/B);
+			
+
+			if ( x <= 0) {
+			x = 0;
+			}
+
+			document.getElementById("result").innerHTML = "You will need to get a " + x + "% in the final category.";
+
+		}
+	</script>
+ </head>
+
+
+<body>
+<link type="text/css" rel="stylesheet" href="CSS_index.css"/>
+
+<body>
+
+<div style="float: left">
+<img src="https://sites.google.com/site/develynhighstudentcouncil/_/rsrc/1472769038920/home/d%27evelyn.school.crest.jpg?height=320&width=320"  alt="Develyn Icon"  style="width:128px;height:120px;">
+</div>
+
+</br>
+
+<center>
+<font size = "50"><b>D'Evelyn Final Grade Calculator</b></font>
+
+</br></br>
+
+
+<font size = "5">Click <a href="https://campus.jeffco.k12.co.us/campus/portal/Jeffco_IC.jsp" target="_blank">here</a> to access Jeffco Parent Portal.</font>
+</center>
+
+<hr color=black >
+	<div class="container">
+	<span>What final percentage in the class are you trying to reach or stay above?</span>
+	<input type="number" id="goal_grade" name="goal_grade" />
+
+	<br>
+	<br>
+
+	<span>What percent is the final exam weighted?</span>
+	<input type="number" id="exam_weight" name="exam_weight" />
+
+	<br>
+	<br>
+
+	<span>How many extra weighted categories are there?</span>
+	<input type="number" id="category_weight" name="category_weight" value=""> <br />
+	<button type="button" onclick="addFields()">Submit </button>
+	<div id="container"></div>
+
+	<br>
+	<br>
+
+	<input type="button" value="Calculate" onclick="weighted()" />
+
+	<br>
+ 	<br>
+
+	<p id="result" name="r1"> </p>  
+	
+	</div>
+
+<div class="footer">Programmed by Denizhan Yigitbas - Class of 2017</div>
+</body>
+
+
+<div class="container">
+<a href="Index.html"><button>Do Another Class</button></a>
+
+</div>
+
+</html>
