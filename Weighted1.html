@@ -46,7 +46,7 @@ function weighted()
 {
 
 
-	var E = "";
+	var D = "";
 
 
 	var A = parseFloat(document.getElementById("goal_grade").value);
@@ -54,16 +54,16 @@ function weighted()
 	var C = parseFloat(document.getElementById("final_weight").value);
 	
 
-	var E = Math.round((A * 100)-((100 - C)(B)))/C;
+	var D = Math.round((A * 100)-((100 - C)(B)))/C;
 	
-	if ( E <= 0)
+	if ( D <= 0)
 	{
-		E = 0;
+		D = 0;
 	}
 
 	
 
-	document.getElementById("result").innerHTML = "You will need to get a " + E + "% in the final category.";
+	document.getElementById("result").innerHTML = "You will need to get a " + D + "% in the final category.";
 	
 }
 </script>
