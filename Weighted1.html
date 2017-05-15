@@ -1,7 +1,7 @@
 <html>
-
 <head>
-<title>D'Evelyn Weighted Final Grade Calculator</title>
+<title>D'Evelyn Cumulative Final Grade Calculator </title>
+
 <style>
 
 	body
@@ -12,85 +12,14 @@
 
 	.container {
   		 padding: 15px;
+
 	}
 
 
 </style>
 
-	<script type='text/javascript'>
-		var w = [];
-		var p = [];
-		var C = 0;
-		var D = 0;
-		function addFields() {
-			// Number of inputs to create
-			var number = document.getElementById("category_weight").value;
-			// Container <div> where dynamic content will be placed
-			var container = document.getElementById("container");
-			// Clear previous contents of the container
-			while (container.hasChildNodes()) {
-			container.removeChild(container.lastChild);
-			}
-		for (i = 0; i < number; i++){
-			// create a row element to contain each pair
-			var row = document.createElement("div");
-			row.id = 'row' + i
+</head>
 
-			row.appendChild(document.createTextNode("Category " + (i+1) + " weight: "));
-			var weight_input = document.createElement("input");
-			weight_input.type = "number";
-			weight_input.name = "weight";	
-			row.appendChild(weight_input);
-
-                	row.appendChild(document.createTextNode("Category " + (i+1) + " percentage: "));
-                	var percentage_input = document.createElement("input");
-                	percentage_input.type = "number";
-               	 	percentage_input.name = "percentage";
-                	row.appendChild(percentage_input);
-
-                	// append inputs to row instead of container, then append each row to container
-                	container.appendChild(row);
-            		}
-        	}
-		function weighted() {
-
-			var container = document.getElementById("container");
-			var rows = container.children;
-			for (var i = 0; i < rows.length; i++) {
-			var row = rows[i];
-			w[i] = row.children[0].value;  // or row.querySelectorAll('[name=weight]').value;
-			p[i] = row.children[1].value;
-
-			}
-
-			for(var i =0; i < rows.length; i++){
-			// You can do as much calculation here with w[i] & p[i]
-				C += parseFloat(w[i]*p[i]);
-				D += parseFloat(w[i]);
-			}
-			console.log(C);
-			console.log(D);
-	     
-			var x = "";
-			var A = parseFloat(document.getElementById("goal_grade").value);
-			var B = parseFloat(document.getElementById("exam_weight").value);
-	     
-	     
-			x = Math.round((A*(D+B)-C)/B);
-			
-
-			if ( x <= 0) {
-			x = 0;
-			}
-
-			document.getElementById("result").innerHTML = "You will need to get a " + x + "% in the final category.";
-
-		}
-	</script>
- </head>
-
-
-<body>
 <link type="text/css" rel="stylesheet" href="CSS_index.css"/>
 
 <body>
@@ -111,39 +40,70 @@
 </center>
 
 <hr color=black >
-	<div class="container">
-	<span>What final percentage in the class are you trying to reach or stay above?</span>
+
+<script>
+function weighted()
+{
+
+
+	var E = "";
+
+
+	var A = parseFloat(document.getElementById("goal_grade").value);
+	var B = parseFloat(document.getElementById("current_percentage").value);
+	var C = parseFloat(document.getElementById("final_weight").value);
+	
+
+	var E = Math.round((A * 100)-((100 - C)(B)))/C;
+	
+	if ( E <= 0)
+	{
+		E = 0;
+	}
+
+	
+
+	document.getElementById("result").innerHTML = "You will need to get a " + E + "% in the final category.";
+	
+}
+</script>
+
+<body> 
+	<div class="container">  
+	What final percentage in the class are you trying to reach or stay above?
 	<input type="number" id="goal_grade" name="goal_grade" />
 
 	<br>
 	<br>
 
-	<span>What percent is the final exam weighted?</span>
-	<input type="number" id="exam_weight" name="exam_weight" />
+	What is your current percentage in the class right now?
+	<input type="number" id="current_percentage" name="current_percentage" />
 
 	<br>
 	<br>
 
-	<span>How many extra weighted categories are there besides the final category?</span>
-	<input type="number" id="category_weight" name="category_weight" value=""> <br />
-	<button type="button" onclick="addFields()">Submit </button>
-	<div id="container"></div>
+	What percent is the final category wieghted? 
+	<input type="number" id="final_weight" name="final_weight" />
 
 	<br>
 	<br>
+
 
 	<input type="button" value="Calculate" onclick="weighted()" />
 
 	<br>
- 	<br>
+	<br>
+	
 
-	<p id="result" name="r1"> </p>  
+
+	<p id="result" name="r1"> </p> 
+	
+	
 	
 	</div>
 
 <div class="footer">Programmed by Denizhan Yigitbas - Class of 2017</div>
 </body>
-
 
 <div class="container">
 <a href="/Denizhan-Yigitbas.github.io/index.html"><button>Do Another Class</button></a>
